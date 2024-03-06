@@ -4,6 +4,8 @@
 This is a Laravel, Livewire and Bootstrap project, contains user login and signup, where the user can select stocks to add to their watchlist. The dashboard will display information and charts from the user's watchlist.
 All data and APIs for live pricing info come from Finnhub: https://finnhub.io/docs/api/
 
+![image](https://github.com/tifaucz/stockinfo/assets/15833226/db12b022-55a6-4da6-be99-223b6e971aa5)
+
 ## Requirements
 - A Finnhub API key. You can get one free at https://finnhub.io/dashboard 
 - PHP (version as required by your version of Laravel)
