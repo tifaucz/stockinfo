@@ -79,9 +79,9 @@ php artisan serve
 This will start a development server at `http://localhost:8000`.
 
 
-## Running the Application
+## Testing the Application
 
-To serve the application on your local machine, you can use Laravel's built-in server:
+To run tests for the application on your local machine, you can use:
 ```
 php artisan test
 ```
