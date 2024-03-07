@@ -6,12 +6,18 @@ All data and APIs for live pricing info come from Finnhub: https://finnhub.io/do
 
 ![image](https://github.com/tifaucz/stockinfo/assets/15833226/db12b022-55a6-4da6-be99-223b6e971aa5)
 
+## Usage
+Once you register and login, you will see the dashboard.
+- First use the filter to find a stock. Type 2 or more characters, and the dropdown on the left should be populated. You can filter further by Mic and Type of stock. 
+- Click on the dropdown and then click on the stock you desire, it will be aded to the watchlist table and the charts will be updated.
+- When logging out and in again, you should keep your watchlist, being able to update it as you desire.
+
 ## Requirements
-- A Finnhub API key. You can get one free at https://finnhub.io/dashboard 
+- A Finnhub API key. You can get one free at https://finnhub.io/dashboard . Without it the app should work, however it will not load the prices for the stocks.
 - PHP (version as required by your version of Laravel)
 - Composer (for managing PHP dependencies)
 - Node.js and npm (for managing front-end assets)
-- A database system like MySQL, PostgreSQL, or SQLite
+- For databases, you need either MySQL or MariaDB for the app, and SQLite for testing.
 
 ## Installation
 
@@ -19,12 +25,12 @@ To install the project, follow these steps:
 
 1. Clone the repository to your local machine:
 ```
-git clone https://github.com/your-username/your-project-name.git
+git clone https://github.com/your-username/stockinfo.git
 ```
 
 2. Navigate to the project directory:
 ```
-cd your-project-name
+cd stockinfo
 ```
 
 3. Install PHP dependencies using Composer:
@@ -70,7 +76,6 @@ npm run dev
 
 
 ## Running the Application
-
 To serve the application on your local machine, you can use Laravel's built-in server:
 ```
 php artisan serve
@@ -80,8 +85,17 @@ This will start a development server at `http://localhost:8000`.
 
 
 ## Testing the Application
-
 To run tests for the application on your local machine, you can use:
 ```
 php artisan test
+```
+If the connection with the database fails, be sure to have SQLite configured in your `php.ini`. You can check this by runningthe command below and checking if the output contains `pdo_sqlite` and `sqlite3`:
+```
+php -m | grep sqlite
+```
+
+## Debug logs
+If you need to check the app logs, in the root directory run:
+```
+tail -f storage/logs/laravel.log
 ```

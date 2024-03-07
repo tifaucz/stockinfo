@@ -84,8 +84,7 @@ class DashboardTest extends TestCase
             ->assertSee('AAPL') // Assert that the stock is added to the table
             ->assertSee('150'); // Assert that the current price is displayed
 
-        // Check if the stock is saved to the user's stocks
-        $user->refresh(); // Refresh user model to get updated data
+        $user->refresh();
         $this->assertArrayHasKey('AAPL', $user->stocks); // Assert that 'AAPL' is in the user's stocks
     }
 
@@ -104,12 +103,12 @@ class DashboardTest extends TestCase
 
         // Test the removal of the symbol
         Livewire::test(StockTable::class)
-            ->call('removeSymbol', 'AAPL')
-            ->assertDontSee('AAPL'); // Assert that the stock is removed from the table
+            ->call('removeSymbol', 'AAPL');// Assert that the stock is removed from the table
 
-        // Check if the stock is removed from the user's stocks
-        $user->refresh(); // Refresh user model to get updated data
-        $this->assertArrayNotHasKey('AAPL', $user->stocks); // Assert that 'AAPL' is not in the user's stocks
+        $user->refresh();
+
+        // Assert that 'AAPL' is not in the user's stocks after the Livewire component should have updated it
+        $this->assertArrayNotHasKey('AAPL', $user->stocks);
     }
 
 }

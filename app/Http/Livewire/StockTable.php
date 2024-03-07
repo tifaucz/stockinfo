@@ -47,7 +47,7 @@ class StockTable extends Component
 
     public function filterStocks()
     {
-        if($this->filter == $this->previousFilter || strlen($this->filter) < 3)
+        if($this->filter == $this->previousFilter || strlen($this->filter) < 2)
         {
             $this->availableSymbols = [];
             $this->filteredSymbols = [];
@@ -64,13 +64,19 @@ class StockTable extends Component
 
         $this->filteredSymbols = $this->availableSymbols->toArray();
 
+        // Log::info('filteredSymbols empty? : ' . empty($this->filteredSymbols));
+
         $this->filterTypeAndMic();
+
+        $this->dispatch('filteredSymbols-updated');
         
     }
 
     public function filterTypeAndMic()
     {
         $availableSymbols = $this->availableSymbols;
+        $this->typeList = [];
+        $this->micList = [];
 
         if($this->selectedMic && strlen($this->selectedMic) > 0) {
             $availableSymbols = collect($availableSymbols)->filter(function ($symbol) {
@@ -78,6 +84,7 @@ class StockTable extends Component
                 return $matchesMic;
             });
         }
+
         if($this->selectedType && strlen($this->selectedType) > 0) {
             $availableSymbols = collect($availableSymbols)->filter(function ($symbol) {
                 $matchesType = $this->selectedType ? $symbol->type === $this->selectedType : true;
@@ -155,7 +162,10 @@ class StockTable extends Component
             $this->fetchStockData($symbol, $stockPriceService);
             $this->saveStocks();
         }
-        $this->reset('selectedSymbol');
+        $this->filter = "";
+        $this->previousFilter = "";
+        $this->filterStocks();
+        $this->render();
     }
 
     public function removeSymbol($symbol)
@@ -166,6 +176,7 @@ class StockTable extends Component
             unset($this->stocks[$symbol]); 
             $this->saveStocks();
         }
+        return redirect()->route('dashboard');
     }
 
     public function updateChart()
